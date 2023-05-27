@@ -11,7 +11,7 @@ if(isset($_POST["btnCadastrar"]))
         $rg = $_POST["txtRg"];
 
         $sql = "INSERT INTO aluno(nomeAluno, cpf, rg) VALUES ('{$nomeAluno}', '{$cpf}', '{$rg}')";
-
+        
         $result = mysqli_query($conn, $sql);
 
         if (!mysqli_affected_rows($conn) == 1)
@@ -37,22 +37,37 @@ if(isset($_POST["btnCadastrar"]))
     }
 }
 
-function verificaVazios()
+function insert($query)
+{
+    $sql = $query;
+    $insert = mysqli_query($conn, $sql);
+
+    if (!mysqli_affected_rows($conn) == 1)
     {
-        if($_POST["txtNome"] == "" || $_POST["txtCpf"] == "" || $_POST["txtRg"] == "")
-        {
-            ?>
-            <script>
-                window.location.href = "cadAlunos.html";
-                var msg = <?php echo json_encode("Preencha os campos") ?>;
-                alert(msg);
-            </script>
-            <?php
-        }
-        else
-        {
-            return true;
-        }
+        mensagem("Erro ao cadastrar o livro");
     }
+    else
+    {
+        return true;
+    }
+}
+
+function verificaVazios()
+{
+    if($_POST["txtNome"] == "" || $_POST["txtCpf"] == "" || $_POST["txtRg"] == "")
+    {
+        ?>
+        <script>
+            window.location.href = "cadAlunos.html";
+            var msg = <?php echo json_encode("Preencha os campos") ?>;
+            alert(msg);
+        </script>
+        <?php
+    }
+    else
+    {
+        return true;
+    }
+}
 
 ?>
