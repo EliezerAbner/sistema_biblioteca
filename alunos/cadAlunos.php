@@ -7,8 +7,15 @@ if(isset($_POST["btnCadastrar"]))
     if(verificaVazios())
     {
         $nomeAluno = $_POST["txtNome"];
+        $dataNascimento = $_POST["txtDataNascimento"];
         $cpf = $_POST["txtCpf"];
         $rg = $_POST["txtRg"];
+        $celular = $_POST["txtCelular"];
+        $email = $_POST["txtEmail"];
+        $cep = $_POST["txtCep"];
+        $logradouro = $_POST["txtLogradouro"];
+        $bairro = $_POST["txtBairro"];
+        $cidade = $_POST["txtCidade"];
 
         $sql = "INSERT INTO aluno(nomeAluno, cpf, rg) VALUES ('{$nomeAluno}', '{$cpf}', '{$rg}')";
         
@@ -54,7 +61,7 @@ function insert($query)
 
 function verificaVazios()
 {
-    if($_POST["txtNome"] == "" || $_POST["txtCpf"] == "" || $_POST["txtRg"] == "")
+    if($_POST["txtNome"] = "" || $_POST["txtDataNascimento"] = "" || $_POST["txtCpf"] = "" || $_POST["txtRg"] = "" || $_POST["txtCelular"] = "" || $_POST["txtEmail"] = "" ||  $_POST["txtCep"] = "" || $_POST["txtLogradouro"] = "" || $_POST["txtBairro"] = "" ||  $_POST["txtCidade"])
     {
         ?>
         <script>
