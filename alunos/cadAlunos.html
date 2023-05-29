@@ -7,7 +7,7 @@
     <title>Cadastro</title>
 </head>
 <body>
-    <form action="cadAlunos.php" method="post">
+    <form action="cadAlunos.php" method="POST">
         <table>
             <tr>
                 <td>Nome</td>
@@ -38,15 +38,19 @@
                 <td><input type="text" name="txtCep" placeholder="CEP do aluno"></td>
             </tr>
             <tr>
-                <td>logradouro</td>
-                <td><input type="text" name="txtLogradouro" placeholder="rua e número do aluno"></td>
+                <td>Rua</td>
+                <td><input type="text" name="txtRua" placeholder="rua e número do aluno"></td>
             </tr>
             <tr>
-                <td>bairro</td>
+                <td>Número</td>
+                <td><input type="number" name="txtNum" placeholder="Número da casa"></td>
+            </tr>
+            <tr>
+                <td>Bairro</td>
                 <td><input type="text" name="txtBairro" placeholder="Bairro do aluno"></td>
             </tr>
             <tr>
-                <td>cidade</td>
+                <td>Cidade</td>
                 <td><input type="text" name="txtCidade" placeholder="Cidade do aluno"></td>
             </tr>
             <tr>

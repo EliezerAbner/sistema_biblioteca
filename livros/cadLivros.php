@@ -9,7 +9,7 @@
             $nomeAutor = $_POST["txtAutor"];
             $nomeEditora = $_POST["txtEditora"]; 
             $anoPublicacao = $_POST["txtAno"];
-
+            
             insert("INSERT INTO editora (nomeEditora) VALUES ('{$nomeEditora}')");
             $editoraId = obterId("SELECT max(editoraId) AS editoraId FROM editora", "editoraId");
 
