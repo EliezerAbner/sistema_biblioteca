@@ -24,32 +24,57 @@ if (isset($_POST["btnCadastrar"]))
         $bairro = $_POST["txtBairro"];
         $cidade = $_POST["txtCidade"];
 
-        insert("INSERT INTO bairro (nomeBairro) VALUES ('{$bairro}')");
-        $bairroId = obterId("SELECT max(bairroId) AS bairroId FROM bairro", "bairroId");
+        if(verificaNomeAluno($nome))
+        {
+            ?>
+            <script>
+                window.location.href = "../index.html";
+                var msg = <?php echo json_encode("Erro!") ?>;
+                alert(msg);
+            </script>
+            <?php
 
-        insert("INSERT INTO cidade (nomeCidade) VALUES ('{$cidade}')");
-        $cidadeId = obterId("SELECT max(cidadeId) AS cidadeId FROM cidade", "cidadeId");
+            /*
+                Pro futuro:
+                Mostrar uma janela onde o usuário verá o erro e poderá escolher se vai atualizar os dados ou cancelar a ação
+            */
+        }
+        else
+        {
+            insert("INSERT INTO bairro (nomeBairro) VALUES ('{$bairro}')", "bairro", "nomeBairro", $bairro);
+            $bairroId = obterId("SELECT max(bairroId) AS bairroId FROM bairro", "bairroId");
 
-        insert("INSERT INTO aluno (nomeAluno, cpf, rg, celular, dataNascimento, email, cep, rua, numero, bairroId, cidadeId) VALUES ('{$nome}', '{$cpf}', '{$rg}', '{$celular}', '{$dataNascimento}', '{$email}', '{$cep}', '{$rua}', '{$numero}', '{$bairroId}', '{$cidadeId}')");
+            insert("INSERT INTO cidade (nomeCidade) VALUES ('{$cidade}')");
+            $cidadeId = obterId("SELECT max(cidadeId) AS cidadeId FROM cidade", "cidadeId");
 
-        ?>
-        <script>
-            window.location.href = "../index.html";
-            var msg = <?php echo json_encode("Aluno cadastrado com sucesso!") ?>;
-            alert(msg);
-        </script>
-        <?php
+            insert("INSERT INTO aluno (nomeAluno, cpf, rg, celular, dataNascimento, email, cep, rua, numero, bairroId, cidadeId) VALUES ('{$nome}', '{$cpf}', '{$rg}', '{$celular}', '{$dataNascimento}', '{$email}', '{$cep}', '{$rua}', '{$numero}', '{$bairroId}', '{$cidadeId}')");
+
+            ?>
+            <script>
+                window.location.href = "../index.html";
+                var msg = <?php echo json_encode("Aluno cadastrado com sucesso!") ?>;
+                alert(msg);
+            </script>
+            <?php
+        }
     }
 }
 
-function insert($sql)
+function insert($sql, $tabela, $coluna, $dado)
 {  
-    $con = $_SESSION["conexao"];
-    $insert = mysqli_query($con, $sql);
-
-    if (!mysqli_affected_rows($con) == 1)
+    if(verificaDuplicados($tabela, $coluna, $dado))
     {
-        mensagem("Erro ao cadastrar o aluno");
+        //
+    }
+    else
+    {
+        $con = $_SESSION["conexao"];
+        $insert = mysqli_query($con, $sql);
+
+        if (!mysqli_affected_rows($con) == 1)
+        {
+            mensagem("Erro ao cadastrar o aluno");
+        }
     }
 }
 
@@ -68,6 +93,22 @@ function obterId($sql, $id)
     }
 
     return $idObtido;
+}
+
+function verificaDuplicados($tabela, $coluna, $dado)
+{
+    $con = $_SESSION["conexao"];
+    $sql = "SELECT * FROM '{$tabela}' WHERE '{$coluna}'='{$dado}'";
+    $query = mysqli_query($con, $sql);
+
+    if(mysqli_num_rows($query) > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 function verificaVazios()
@@ -89,6 +130,22 @@ function verificaVazios()
     else
     {
         return true;
+    }
+}
+
+function verificaNomeAluno($nome)
+{
+    $con = $_SESSION["conexao"];
+    $sql = "SELECT * FROM aluno WHERE nomeAluno='{$nome}'";
+    $query = mysqli_query($con, $sql);
+
+    if(mysqli_num_rows($query) > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
