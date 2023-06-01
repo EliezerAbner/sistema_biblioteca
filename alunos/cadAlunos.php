@@ -1,12 +1,7 @@
 <?php
 
-/*
- - falta:
-    *verificar inserção duplicada;
-    *visual;
-*/
-
 require_once '../conexao.php';
+require '../crud.php';
 
 if (isset($_POST["btnCadastrar"]))
 {
@@ -41,13 +36,11 @@ if (isset($_POST["btnCadastrar"]))
         }
         else
         {
-            insert("INSERT INTO bairro (nomeBairro) VALUES ('{$bairro}')", "bairro", "nomeBairro", $bairro);
-            $bairroId = obterId("SELECT max(bairroId) AS bairroId FROM bairro", "bairroId");
+            $bairroId = insert("INSERT INTO bairro (nomeBairro) VALUES ('{$bairro}')", "bairro", "nomeBairro", $bairro, "SELECT max(bairroId) AS bairroId FROM bairro", "bairroId");
 
-            insert("INSERT INTO cidade (nomeCidade) VALUES ('{$cidade}')");
-            $cidadeId = obterId("SELECT max(cidadeId) AS cidadeId FROM cidade", "cidadeId");
+            $cidadeId = insert("INSERT INTO cidade (nomeCidade) VALUES ('{$cidade}')", "cidade", "nomeCidade", $cidade, "SELECT max(cidadeId) AS cidadeId FROM cidade", "cidadeId");
 
-            insert("INSERT INTO aluno (nomeAluno, cpf, rg, celular, dataNascimento, email, cep, rua, numero, bairroId, cidadeId) VALUES ('{$nome}', '{$cpf}', '{$rg}', '{$celular}', '{$dataNascimento}', '{$email}', '{$cep}', '{$rua}', '{$numero}', '{$bairroId}', '{$cidadeId}')");
+            $insert = insert("INSERT INTO aluno (nomeAluno, cpf, rg, celular, dataNascimento, email, cep, rua, numero, bairroId, cidadeId) VALUES ('{$nome}', '{$cpf}', '{$rg}', '{$celular}', '{$dataNascimento}', '{$email}', '{$cep}', '{$rua}', '{$numero}', '{$bairroId}', '{$cidadeId}')", "aluno", "nomeAluno", $nome, "SELECT max(alunoId) AS alunoId FROM aluno", "alunoId");
 
             ?>
             <script>
@@ -59,46 +52,10 @@ if (isset($_POST["btnCadastrar"]))
         }
     }
 }
-
-function insert($sql, $tabela, $coluna, $dado)
-{  
-    if(verificaDuplicados($tabela, $coluna, $dado))
-    {
-        //
-    }
-    else
-    {
-        $con = $_SESSION["conexao"];
-        $insert = mysqli_query($con, $sql);
-
-        if (!mysqli_affected_rows($con) == 1)
-        {
-            mensagem("Erro ao cadastrar o aluno");
-        }
-    }
-}
-
-function obterId($sql, $id)
+function verificaNomeAluno($nome)
 {
     $con = $_SESSION["conexao"];
-    
-    $select = mysqli_query($con, $sql);
-
-    if (mysqli_num_rows($select) > 0 )
-    {
-        while ($result  = mysqli_fetch_assoc($select))
-        {
-            $idObtido = $result[$id];
-        } 
-    }
-
-    return $idObtido;
-}
-
-function verificaDuplicados($tabela, $coluna, $dado)
-{
-    $con = $_SESSION["conexao"];
-    $sql = "SELECT * FROM '{$tabela}' WHERE '{$coluna}'='{$dado}'";
+    $sql = "SELECT * FROM aluno WHERE nomeAluno='{$nome}'";
     $query = mysqli_query($con, $sql);
 
     if(mysqli_num_rows($query) > 0)
@@ -110,7 +67,6 @@ function verificaDuplicados($tabela, $coluna, $dado)
         return false;
     }
 }
-
 function verificaVazios()
 {
     if ($_POST["txtNome"] == "" || 
@@ -132,32 +88,3 @@ function verificaVazios()
         return true;
     }
 }
-
-function verificaNomeAluno($nome)
-{
-    $con = $_SESSION["conexao"];
-    $sql = "SELECT * FROM aluno WHERE nomeAluno='{$nome}'";
-    $query = mysqli_query($con, $sql);
-
-    if(mysqli_num_rows($query) > 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-function mensagem($msg)
-{
-    ?>
-    <script>
-        window.location.href = "cadAlunos.html";
-        var msg = <?php echo json_encode($msg) ?>;
-        alert(msg);
-    </script>
-    <?php
-}
-
-?>

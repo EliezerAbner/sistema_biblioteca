@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/06/2023 às 03:47
+-- Tempo de geração: 28/05/2023 às 02:14
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -36,18 +36,10 @@ CREATE TABLE `aluno` (
   `dataNascimento` date NOT NULL,
   `email` varchar(15) NOT NULL,
   `cep` varchar(15) NOT NULL,
-  `rua` varchar(50) NOT NULL,
+  `logradouro` varchar(15) NOT NULL,
   `bairroId` int(11) NOT NULL,
-  `cidadeId` int(11) NOT NULL,
-  `numero` int(6) DEFAULT NULL
+  `cidadeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `aluno`
---
-
-INSERT INTO `aluno` (`alunoId`, `nomeAluno`, `cpf`, `rg`, `celular`, `dataNascimento`, `email`, `cep`, `rua`, `bairroId`, `cidadeId`, `numero`) VALUES
-(11, 'Sujiro Kimimame', '25925698595', '321659', '4499875868', '2002-07-03', 'sujkimi@bol.com', '87043590', 'Rua das Flores ', 19, 16, 659);
 
 -- --------------------------------------------------------
 
@@ -95,15 +87,8 @@ INSERT INTO `autorlivro` (`autorLivroId`, `autorId`, `livroId`, `autorLivrocol`)
 
 CREATE TABLE `bairro` (
   `bairroId` int(11) NOT NULL,
-  `nomeBairro` varchar(25) NOT NULL
+  `nomeBairro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `bairro`
---
-
-INSERT INTO `bairro` (`bairroId`, `nomeBairro`) VALUES
-(19, 'Cidade Alta');
 
 -- --------------------------------------------------------
 
@@ -113,15 +98,8 @@ INSERT INTO `bairro` (`bairroId`, `nomeBairro`) VALUES
 
 CREATE TABLE `cidade` (
   `cidadeId` int(11) NOT NULL,
-  `nomeCidade` varchar(20) NOT NULL
+  `nomeCidade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `cidade`
---
-
-INSERT INTO `cidade` (`cidadeId`, `nomeCidade`) VALUES
-(16, 'Rolândia');
 
 -- --------------------------------------------------------
 
@@ -261,7 +239,7 @@ ALTER TABLE `livro`
 -- AUTO_INCREMENT de tabela `aluno`
 --
 ALTER TABLE `aluno`
-  MODIFY `alunoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `alunoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `autor`
@@ -279,13 +257,13 @@ ALTER TABLE `autorlivro`
 -- AUTO_INCREMENT de tabela `bairro`
 --
 ALTER TABLE `bairro`
-  MODIFY `bairroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `bairroId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `cidade`
 --
 ALTER TABLE `cidade`
-  MODIFY `cidadeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `cidadeId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `editora`
