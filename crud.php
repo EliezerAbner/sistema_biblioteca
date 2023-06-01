@@ -6,6 +6,9 @@ function insert($insertQuery, $verificaTabela, $verificaColuna, $VerificaDado, $
 {
     $idObtido = verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId);
 
+    //var_dump($verificaColuna);
+    //die();
+
     if($idObtido == false)
     {
         $con = $_SESSION["conexao"];
@@ -35,13 +38,14 @@ function obterId($query, $id)
             $idObtido = $result[$id];
         } 
     }
-
     return $idObtido;
 }
 function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId)
 {
     $con = $_SESSION["conexao"];
-    $sql = "SELECT * FROM '{$verificaTabela}' WHERE '{$verificaColuna}'='{'$VerificaDado'}'";
+    $sql = "SELECT * FROM `{$verificaTabela}` WHERE '{$verificaColuna}' = '{$VerificaDado}'";
+    //var_dump($sql);
+    //die();
     $query = mysqli_query($con, $sql);
 
     if(mysqli_num_rows($query) > 0)
@@ -50,7 +54,13 @@ function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $co
         {
             $idObtido = $result[$colunaId];
         }
+        var_dump($idObtido);
+        die();
         return $idObtido;
+    }
+    else
+    {
+        return false;
     }
 }
 function mensagem($msg)
