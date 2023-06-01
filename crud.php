@@ -43,7 +43,7 @@ function obterId($query, $id)
 function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId)
 {
     $con = $_SESSION["conexao"];
-    $sql = "SELECT * FROM `{$verificaTabela}` WHERE '{$verificaColuna}' = '{$VerificaDado}'";
+    $sql = "SELECT * FROM `{$verificaTabela}` WHERE {$verificaColuna} = '{$VerificaDado}'";
     //var_dump($sql);
     //die();
     $query = mysqli_query($con, $sql);
@@ -54,26 +54,17 @@ function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $co
         {
             $idObtido = $result[$colunaId];
         }
-        var_dump($idObtido);
-        die();
+        //var_dump($idObtido);
+        //die();
         return $idObtido;
     }
     else
     {
+        //var_dump("Deu negativo :(");
+        //die();
         return false;
     }
 }
-function mensagem($msg)
-{
-    ?>
-    <script>
-        window.location.href = "cadAlunos.html";
-        var msg = <?php echo json_encode($msg) ?>;
-        alert(msg);
-    </script>
-    <?php
-}
 
 ?>
 
-?>

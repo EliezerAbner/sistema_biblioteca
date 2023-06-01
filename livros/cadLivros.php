@@ -29,4 +29,22 @@
         }
     }
 
+    function verificaVazios()
+    {
+        if($_POST["txtTitulo"] == "" || $_POST["txtAutor"] == "" || $_POST["txtEditora"] == "" || $_POST["txtAno"] == "")
+        {
+            ?>
+            <script>
+                window.location.href = "cadLivros.html";
+                var msg = <?php echo json_encode("Preencha os campos!") ?>;
+                alert(msg);
+            </script>
+            <?php
+        }
+        else
+        {
+            return true;
+        }
+    }
+
 

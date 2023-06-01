@@ -81,7 +81,13 @@ function verificaVazios()
     $_POST["txtBairro"] == "" || 
     $_POST["txtCidade"] == "")
     {
-        mensagem("Preencha os campos");
+        ?>
+        <script>
+            window.location.href = "cadAlunos.html";
+            var msg = <?php echo json_encode("Preencha os dados") ?>;
+            alert(msg);
+        </script>
+        <?php
     }
     else
     {
