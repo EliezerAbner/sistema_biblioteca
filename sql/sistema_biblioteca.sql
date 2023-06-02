@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/06/2023 às 03:47
+-- Tempo de geração: 02/06/2023 às 03:20
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -47,7 +47,8 @@ CREATE TABLE `aluno` (
 --
 
 INSERT INTO `aluno` (`alunoId`, `nomeAluno`, `cpf`, `rg`, `celular`, `dataNascimento`, `email`, `cep`, `rua`, `bairroId`, `cidadeId`, `numero`) VALUES
-(11, 'Sujiro Kimimame', '25925698595', '321659', '4499875868', '2002-07-03', 'sujkimi@bol.com', '87043590', 'Rua das Flores ', 19, 16, 659);
+(11, 'Sujiro Kimimame', '25925698595', '321659', '4499875868', '2002-07-03', 'sujkimi@bol.com', '87043590', 'Rua das Flores ', 19, 16, 659),
+(12, 'Daniel', '01202356974', '1203652', '44997513269', '2009-01-02', 'dani@teste.com', '87012350', 'Rua teste', 19, 17, 59);
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,8 @@ CREATE TABLE `autorlivro` (
 --
 
 INSERT INTO `autorlivro` (`autorLivroId`, `autorId`, `livroId`, `autorLivrocol`) VALUES
-(1, 1, 2, NULL);
+(1, 1, 2, NULL),
+(2, 1, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,7 +123,8 @@ CREATE TABLE `cidade` (
 --
 
 INSERT INTO `cidade` (`cidadeId`, `nomeCidade`) VALUES
-(16, 'Rolândia');
+(16, 'Rolândia'),
+(17, 'Maringá');
 
 -- --------------------------------------------------------
 
@@ -185,7 +188,8 @@ CREATE TABLE `livro` (
 --
 
 INSERT INTO `livro` (`livroId`, `editoraId`, `nomeLivro`, `anoPublicacao`) VALUES
-(2, 20, 'CRUD PHP', 2023);
+(2, 20, 'CRUD PHP', 2023),
+(3, 20, 'MYSQL', 2003);
 
 --
 -- Índices para tabelas despejadas
@@ -261,7 +265,7 @@ ALTER TABLE `livro`
 -- AUTO_INCREMENT de tabela `aluno`
 --
 ALTER TABLE `aluno`
-  MODIFY `alunoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `alunoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `autor`
@@ -273,7 +277,7 @@ ALTER TABLE `autor`
 -- AUTO_INCREMENT de tabela `autorlivro`
 --
 ALTER TABLE `autorlivro`
-  MODIFY `autorLivroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `autorLivroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `bairro`
@@ -285,7 +289,7 @@ ALTER TABLE `bairro`
 -- AUTO_INCREMENT de tabela `cidade`
 --
 ALTER TABLE `cidade`
-  MODIFY `cidadeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `cidadeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `editora`
@@ -309,7 +313,7 @@ ALTER TABLE `exemplarlivro`
 -- AUTO_INCREMENT de tabela `livro`
 --
 ALTER TABLE `livro`
-  MODIFY `livroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `livroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para tabelas despejadas
