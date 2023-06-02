@@ -28,6 +28,36 @@
             <?php
         }
     }
+    else if (isset($_POST["btnAtualizar"]))
+    {
+        if (verificaVazios())
+        {
+            $titulo = $_POST["txtTitulo"];
+            $nomeAutor = $_POST["txtAutor"];
+            $nomeEditora = $_POST["txtEditora"]; 
+            $anoPublicacao = $_POST["txtAno"];  
+            
+            $editoraId = obterId("SELECT * FROM `editora` WHERE nomeEditora = '{$nomeEditora}'","editoraId");
+            atualizar("UPDATE `editora` SET nomeEditora='{$nomeEditora}' WHERE editoraId='{$editoraId}'");
+
+            $livroId = obterId("SELECT * FROM `livro` WHERE nomeLivro = '{$titulo}'","livroId");
+            atualizar("UPDATE `livro` SET editoraId='{$editoraId}', nomeLivro='{$titulo}', anoPublicacao='{$anoPublicacao}' WHERE livroId='{$livroId}'");
+
+            $autorId = obterId("SELECT * FROM `autor` WHERE nomeAutor = '{$nomeAutor}'","autorId");
+            atualizar("UPDATE `autor` SET nomeAutor='{$nomeAutor}' WHERE autorId='{$autorId}'");
+
+            $autorLivroId = obterId("SELECT * FROM `autorLivro` WHERE livroId = '{$livroId}'","autorLivroId");
+            atualizar("UPDATE `autorLivro` SET autorId='{$autorId}', livroId='{$livroId}' WHERE autorLivroId='{$autorLivroId}'");
+
+            ?>
+            <script>
+                window.location.href = "../index.html";
+                var msg = <?php echo json_encode("Livro atualizado com sucesso!") ?>;
+                alert(msg);
+            </script>
+            <?php
+        }
+    }
 
     function verificaVazios()
     {

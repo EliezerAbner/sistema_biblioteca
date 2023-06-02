@@ -4,10 +4,7 @@ require_once '../conexao.php';
 
 function insert($insertQuery, $verificaTabela, $verificaColuna, $VerificaDado, $queryObterId, $colunaId)
 {
-    $idObtido = verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId);
-
-    //var_dump($verificaColuna);
-    //die();
+    $idObtido = verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId); //retorna ID caso exista, ou false
 
     if($idObtido == false)
     {
@@ -16,7 +13,7 @@ function insert($insertQuery, $verificaTabela, $verificaColuna, $VerificaDado, $
 
         if (!mysqli_affected_rows($con) == 1)
         {
-            mensagem("Erro ao cadastrar o aluno");
+            mensagem("Erro ao realizar cadastro!");
         }
         if ($queryObterId != "") 
         {
@@ -24,6 +21,16 @@ function insert($insertQuery, $verificaTabela, $verificaColuna, $VerificaDado, $
         }
     }
     return $idObtido;
+}
+function atualizar($updateQuery)
+{
+    $con = $_SESSION["conexao"];
+    $update = mysqli_query($con, $updateQuery);
+
+    if (!mysqli_affected_rows($con) == 1)
+    {
+        mensagem("Erro ao atualizar cadastro!");
+    }
 }
 function obterId($query, $id)
 {
@@ -44,8 +51,6 @@ function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $co
 {
     $con = $_SESSION["conexao"];
     $sql = "SELECT * FROM `{$verificaTabela}` WHERE {$verificaColuna} = '{$VerificaDado}'";
-    //var_dump($sql);
-    //die();
     $query = mysqli_query($con, $sql);
 
     if(mysqli_num_rows($query) > 0)
@@ -54,16 +59,22 @@ function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $co
         {
             $idObtido = $result[$colunaId];
         }
-        //var_dump($idObtido);
-        //die();
         return $idObtido;
     }
     else
     {
-        //var_dump("Deu negativo :(");
-        //die();
         return false;
     }
+}
+function mensagem($mensagem)
+{
+    ?>
+    <script>
+        window.location.href = "../index.html";
+        var msg = <?php echo json_encode($mensagem) ?>;
+        alert(msg);
+    </script>
+    <?php
 }
 
 ?>

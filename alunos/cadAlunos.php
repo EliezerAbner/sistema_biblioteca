@@ -52,6 +52,40 @@ if (isset($_POST["btnCadastrar"]))
         }
     }
 }
+else if (isset($_POST["btnAtualizar"]))
+{
+    if (verificaVazios())
+    {
+        $nome = $_POST["txtNome"];
+        $dataNascimento = $_POST["txtDataNascimento"];
+        $cpf = $_POST["txtCpf"];
+        $rg = $_POST["txtRg"];
+        $celular = $_POST["txtCelular"];
+        $email = $_POST["txtEmail"];
+        $cep = $_POST["txtCep"];
+        $rua = $_POST["txtRua"];
+        $numero = $_POST["txtNum"];
+        $bairro = $_POST["txtBairro"];
+        $cidade = $_POST["txtCidade"];
+
+        $bairroId = obterId("SELECT * FROM bairro WHERE nomeBairro = '{$bairro}'","bairroId");
+        atualizar("UPDATE `bairro` SET nomeBairro = '{$bairro}' WHERE bairroId = '{$bairroId}'");
+
+        $cidadeId = obterId("SELECT * FROM cidade WHERE nomeCidade = '{$cidade}'","cidadeId"); 
+        atualizar("UPDATE `cidade` SET nomeCidade = '{$cidade}' WHERE cidadeId = '{$cidadeId}'"); 
+
+        $alunoId = obterId("SELECT * FROM aluno WHERE nomeAluno = '{$nome}'","alunoId");
+        atualizar("UPDATE `aluno` SET nomeAluno='{$nome}', cpf='{$cpf}', rg='{$rg}', celular='{$celular}', dataNascimento='{$dataNascimento}', email='{$email}', cep='{$cep}', rua='{$rua}', numero='{$numero}', bairroId='{$bairroId}', cidadeId='{$cidadeId}' WHERE alunoId='{$alunoId}'");
+
+        ?>
+        <script>
+            window.location.href = "../index.html";
+            var msg = <?php echo json_encode("Aluno atualizado com sucesso!") ?>;
+            alert(msg);
+        </script>
+        <?php
+    }
+}
 function verificaNomeAluno($nome)
 {
     $con = $_SESSION["conexao"];
