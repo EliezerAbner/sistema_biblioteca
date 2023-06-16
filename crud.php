@@ -22,6 +22,25 @@ function insert($insertQuery, $verificaTabela, $verificaColuna, $VerificaDado, $
     }
     return $idObtido;
 }
+function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId)
+{
+    $con = $_SESSION["conexao"];
+    $sql = "SELECT * FROM `{$verificaTabela}` WHERE {$verificaColuna} = '{$VerificaDado}'";
+    $query = mysqli_query($con, $sql);
+
+    if(mysqli_num_rows($query) > 0)
+    {
+        while ($result = mysqli_fetch_assoc($query))
+        {
+            $idObtido = $result[$colunaId];
+        }
+        return $idObtido;
+    }
+    else
+    {
+        return false;
+    }
+}
 function atualizar($updateQuery)
 {
     $con = $_SESSION["conexao"];
@@ -47,25 +66,38 @@ function obterId($query, $id)
     }
     return $idObtido;
 }
-function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId)
-{
-    $con = $_SESSION["conexao"];
-    $sql = "SELECT * FROM `{$verificaTabela}` WHERE {$verificaColuna} = '{$VerificaDado}'";
-    $query = mysqli_query($con, $sql);
 
-    if(mysqli_num_rows($query) > 0)
+function insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega)
+{
+    if(emprestimoDuplicado($nomeAluno ,$exemplarLivro))
     {
-        while ($result = mysqli_fetch_assoc($query))
+        $insertQuery = "INSERT INTO `emprestimolivro`(`exemplarLivroId`, `alunoId`, `dataEmprestimo`, `dataRetorno`) VALUES ('{$exemplarLivro}','{$nomeAluno}',NOW(),'{$dataEntrega}'";
+        $con = $_SESSION["conexao"];
+        $insert = mysqli_query($con, $insertQuery);
+
+        if (!mysqli_affected_rows($con) == 1)
         {
-            $idObtido = $result[$colunaId];
+            mensagem("Erro ao realizar emprestimo!");
         }
-        return $idObtido;
     }
     else
     {
-        return false;
+        mensagem("Emprestimo já realizado!");
     }
 }
+
+function emprestimoDuplicado($nomeAluno, $exemplarLivro)
+{
+    $con = $_SESSION["conexao"];
+    $sql = "SELECT * FROM emprestimolivro WHERE alunoId='{$nomeAluno}' AND exemplarLivroId='{$exemplarLivro}'";
+    $query = mysqli_query($con, $sql);
+    if(mysqli_num_rows($query) > 0)
+    {
+        return false;
+    }
+    return true;
+}
+
 function mensagem($mensagem)
 {
     ?>
