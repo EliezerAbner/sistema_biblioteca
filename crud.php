@@ -71,7 +71,7 @@ function insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega)
 {
     if(emprestimoDuplicado($nomeAluno ,$exemplarLivro))
     {
-        $insertQuery = "INSERT INTO `emprestimolivro`(`exemplarLivroId`, `alunoId`, `dataEmprestimo`, `dataRetorno`) VALUES ('{$exemplarLivro}','{$nomeAluno}',NOW(),'{$dataEntrega}'";
+        $insertQuery = "INSERT INTO `emprestimolivro`(exemplarLivroId, alunoId, dataEmprestimo, dataRetorno) VALUES ({$exemplarLivro},{$nomeAluno},NOW(), '{$dataEntrega}' )";
         $con = $_SESSION["conexao"];
         $insert = mysqli_query($con, $insertQuery);
 

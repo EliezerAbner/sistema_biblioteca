@@ -10,13 +10,18 @@
     {
         while ($result  = mysqli_fetch_assoc($select))
         {
+
+            $nomeAluno = $result["nomeAluno"];
+            $dataNascimento = $result["dataNascimento"];
+            $cpfAluno = $result["cpf"];
+
             ?>
             <tr>
-                <td><?php $nomeAluno = $result["nomeAluno"] ?></td>
-                <td><?php $dataNascimento = $result["nomeAluno"] ?></td>
-            </tr>
+                <td><?php echo $nomeAluno ?></td>
+                <td><?php echo $dataNascimento ?></td>
+                <td><?php echo $cpfAluno ?></td>
+            </tr><br>
             <?php
         } 
-    }
-    return $idObtido; 
+    } 
 ?>

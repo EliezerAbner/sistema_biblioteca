@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/06/2023 às 03:20
+-- Tempo de geração: 21/06/2023 às 02:48
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -158,6 +158,14 @@ CREATE TABLE `emprestimolivro` (
   `dataRetorno` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `emprestimolivro`
+--
+
+INSERT INTO `emprestimolivro` (`emprestimoLivroId`, `exemplarLivroId`, `alunoId`, `dataEmprestimo`, `dataRetorno`) VALUES
+(1, 1, 12, '2023-06-20', '2023-12-03'),
+(3, 1, 11, '2023-06-20', '2023-08-03');
+
 -- --------------------------------------------------------
 
 --
@@ -169,6 +177,39 @@ CREATE TABLE `exemplarlivro` (
   `livroId` int(11) NOT NULL,
   `numeroExemplar` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `exemplarlivro`
+--
+
+INSERT INTO `exemplarlivro` (`exemplarLivroId`, `livroId`, `numeroExemplar`) VALUES
+(1, 2, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `lista_emprestimos`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `lista_emprestimos` (
+`nomeAluno` varchar(45)
+,`nomeLivro` varchar(45)
+,`dataEmprestimo` date
+,`dataRetorno` date
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `lista_livros`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `lista_livros` (
+`nomeLivro` varchar(45)
+,`anoPublicacao` int(11)
+,`nomeEditora` varchar(45)
+,`nomeAutor` varchar(45)
+);
 
 -- --------------------------------------------------------
 
@@ -190,6 +231,24 @@ CREATE TABLE `livro` (
 INSERT INTO `livro` (`livroId`, `editoraId`, `nomeLivro`, `anoPublicacao`) VALUES
 (2, 20, 'CRUD PHP', 2023),
 (3, 20, 'MYSQL', 2003);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `lista_emprestimos`
+--
+DROP TABLE IF EXISTS `lista_emprestimos`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lista_emprestimos`  AS SELECT `aluno`.`nomeAluno` AS `nomeAluno`, `livro`.`nomeLivro` AS `nomeLivro`, `emprestimolivro`.`dataEmprestimo` AS `dataEmprestimo`, `emprestimolivro`.`dataRetorno` AS `dataRetorno` FROM ((`emprestimolivro` join `aluno` on(`emprestimolivro`.`alunoId` = `aluno`.`alunoId`)) join `livro` on(`emprestimolivro`.`exemplarLivroId` = `livro`.`livroId`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `lista_livros`
+--
+DROP TABLE IF EXISTS `lista_livros`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lista_livros`  AS SELECT `livro`.`nomeLivro` AS `nomeLivro`, `livro`.`anoPublicacao` AS `anoPublicacao`, `editora`.`nomeEditora` AS `nomeEditora`, `autor`.`nomeAutor` AS `nomeAutor` FROM (((`livro` join `autor`) join `editora`) join `autorlivro`) WHERE `autor`.`autorId` = `autorlivro`.`autorId` AND `livro`.`livroId` = `autorlivro`.`livroId` AND `livro`.`editoraId` = `editora`.`editoraId` ;
 
 --
 -- Índices para tabelas despejadas
@@ -301,13 +360,13 @@ ALTER TABLE `editora`
 -- AUTO_INCREMENT de tabela `emprestimolivro`
 --
 ALTER TABLE `emprestimolivro`
-  MODIFY `emprestimoLivroId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emprestimoLivroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `exemplarlivro`
 --
 ALTER TABLE `exemplarlivro`
-  MODIFY `exemplarLivroId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `exemplarLivroId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `livro`

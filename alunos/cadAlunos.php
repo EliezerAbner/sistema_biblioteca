@@ -86,6 +86,11 @@ else if (isset($_POST["btnAtualizar"]))
         <?php
     }
 }
+else if (isset($_POST["btnBuscar"]))
+{
+    //obtem os dados do banco e manda pro html
+}
+
 function verificaNomeAluno($nome)
 {
     $con = $_SESSION["conexao"];
