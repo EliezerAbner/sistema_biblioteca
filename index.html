@@ -5,13 +5,202 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <style>
+        .hide{
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Biblioteca Virtual</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Alunos
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item">Alunos</a></li>
+                      <li><a class="dropdown-item">Cadastro de Alunos</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Livros
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Livros</a></li>
+                      <li><a class="dropdown-item" onclick="desligarHolofote('.cadLivro')" href="#">Cadastro de Livros</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Empréstimos
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Realizar
+                        Empréstimo
+                      </a></li>
+                      <li><a class="dropdown-item" href="#">Devoluções</a></li>
+                      <li><a class="dropdown-item" href="#">Empréstimos Ativos</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <span class="navbar-text">
+                  Navbar text with an inline element
+                </span>
+              </div>
+            </div>
+        </nav>
+    </header>
+    <article>
+        <div class="cadLivro hide">
+            <form action="cadLivros.php" method="post">
+                <table>
+                    <tr>
+                        <td>Titulo</td>
+                        <td><input type="text" name="txtTitulo" placeholder="Nome do livro"></td>
+                    </tr>
+                    <tr>
+                        <td>Autor</td>
+                        <td><input type="text" name="txtAutor" placeholder="Nome do autor"></td>
+                    </tr>
+                    <tr>
+                        <td>Editora</td>
+                        <td><input type="text" name="txtEditora" placeholder="Nome da editora"></td>
+                    </tr>
+                    <tr>
+                        <td>Ano</td>
+                        <td><input type="text" name="txtAno" placeholder="Ano de publicação da obra"></td>
+                    </tr>
+                    <tr>
+                        <td>Código do exemplar</td>
+                        <td><input type="text" name="txtCod" placeholder="Cod. Barras"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Cadastrar" name="btnCadastrar"></td>
+                        <td><input type="submit" value="Atualizar" name="btnAtualizar"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div class="cadAluno hide" >
+            <form action="cadAlunos.php" method="POST">
+                <table>
+                    <tr>
+                        <td>Id</td>
+                        <td><input type="number" name="txtId"></td>
+                        <td><input type="button" name="btnBuscar" value="Buscar"></td>
+                    </tr>
+                    <tr>
+                        <td>Nome</td>
+                        <td><input type="text" name="txtNome" placeholder="Nome do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Data de Nascimento</td>
+                        <td><input type="date" name="txtDataNascimento" placeholder="Data de nascimento do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>CPF</td>
+                        <td><input type="text" name="txtCpf" placeholder="CPF do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>RG</td>
+                        <td><input type="text" name="txtRg" placeholder="RG do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Celular</td>
+                        <td><input type="tel" name="txtCelular" placeholder="Celular do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td><input type="text" name="txtEmail" placeholder="email do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>CEP</td>
+                        <td><input type="text" name="txtCep" placeholder="CEP do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Rua</td>
+                        <td><input type="text" name="txtRua" placeholder="rua e número do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Número</td>
+                        <td><input type="number" name="txtNum" placeholder="Número da casa"></td>
+                    </tr>
+                    <tr>
+                        <td>Bairro</td>
+                        <td><input type="text" name="txtBairro" placeholder="Bairro do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Cidade</td>
+                        <td><input type="text" name="txtCidade" placeholder="Cidade do aluno"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Cadastrar" name="btnCadastrar"></td>
+                        <td><input type="submit" value="Atualizar" name="btnAtualizar"></td>
+                    </tr>    
+                </table>
+            </form>
+        </div>
+
+        <div class="realEmprestimo hide">
+            <form action="emprestimo.php" method="post">
+                <table>
+                    <tr>
+                        <td>Insira o livro</td>
+                        <td><input type="text" name="txtLivro"></td>
+                    </tr>
+                    <tr>
+                        <td>Insira o nome do aluno</td>
+                        <td><input type="text" name="txtAluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Entrega</td>
+                        <td><input type="date" name="txtDataEntrega"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Realizar Cadastro" name="btnSubmit"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </article>
+
+
+
+
     <a href="alunos/cadAlunos.html">Cadastro alunos</a> <br>
     <a href="alunos/listaAlunos.php">Alunos cadastrados</a> <br>
     <a href="livros/cadLivros.html">Cadastro livros</a> <br>
     <a href="livros/listaLivros.php">Lista livros</a> <br>
     <a href="emprestimo/emprestimo.html">Realizar emprestimo</a> <br>
     <a href="#">Lista de empréstimos</a> <br>
+
+    <script>
+        function desligarHolofote(div)
+        {
+            const desligar = document.querySelector(div)
+            desligar.classList.toggle("hide")
+        }
+
+        function ligarHolofote(div)
+        {
+            const ligar = document.getElementById(div)
+            element.style.display = "inline-block";
+        }
+    </script>
 </body>
 </html>

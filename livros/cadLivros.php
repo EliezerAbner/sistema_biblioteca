@@ -10,14 +10,14 @@
             $nomeAutor = $_POST["txtAutor"];
             $nomeEditora = $_POST["txtEditora"]; 
             $anoPublicacao = $_POST["txtAno"];
-            $qtde = $_POST["txtQtde"];
+            $codigo = $_POST["txtCod"];
             
             $editoraId = insert("INSERT INTO editora (nomeEditora) VALUES ('{$nomeEditora}')", "editora", "nomeEditora", "$nomeEditora", "SELECT max(editoraId) AS editoraId FROM editora", "editoraId");
             $livroId = insert("INSERT INTO livro (editoraId, nomeLivro, anoPublicacao) VALUES ('{$editoraId}','{$titulo}', '{$anoPublicacao}')", "livro", "nomeLivro", $titulo, "SELECT max(livroId) AS livroId FROM livro ", "livroId");
             $autorId = insert("INSERT INTO autor (nomeAutor) VALUES ('{$nomeAutor}')", "autor", "nomeAutor", $nomeAutor, "SELECT max(autorId) AS autorId FROM autor", "autorId");
             $insert = insert("INSERT INTO autorLivro (autorId, livroId) VALUES ('{$autorId}', '{$livroId}')", "autorLivro", "livroId", $livroId, "", "");
             
-            $insertExemplarLivro = insert("INSERT INTO exemplarLivro (livroId, numeroExemplar) VALUES ({'$livroId'}, {'$qtde'})", "exemplarLivro", "livroId", "$livroId", "","" );
+            $insertExemplarLivro = insert("INSERT INTO exemplarLivro (livroId, numeroExemplar) VALUES ({'$livroId'}, {'$codigo'})", "exemplarLivro", "livroId", "$livroId", "","" );
             
             mensagem("Livro cadastrado com sucesso!");
         }
