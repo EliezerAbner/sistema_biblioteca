@@ -37,18 +37,10 @@ if (isset($_POST["btnCadastrar"]))
         else
         {
             $bairroId = insert("INSERT INTO bairro (nomeBairro) VALUES ('{$bairro}')", "bairro", "nomeBairro", $bairro, "SELECT max(bairroId) AS bairroId FROM bairro", "bairroId");
-
             $cidadeId = insert("INSERT INTO cidade (nomeCidade) VALUES ('{$cidade}')", "cidade", "nomeCidade", $cidade, "SELECT max(cidadeId) AS cidadeId FROM cidade", "cidadeId");
-
             $insert = insert("INSERT INTO aluno (nomeAluno, cpf, rg, celular, dataNascimento, email, cep, rua, numero, bairroId, cidadeId) VALUES ('{$nome}', '{$cpf}', '{$rg}', '{$celular}', '{$dataNascimento}', '{$email}', '{$cep}', '{$rua}', '{$numero}', '{$bairroId}', '{$cidadeId}')", "aluno", "nomeAluno", $nome, "SELECT max(alunoId) AS alunoId FROM aluno", "alunoId");
 
-            ?>
-            <script>
-                window.location.href = "../index.html";
-                var msg = <?php echo json_encode("Aluno cadastrado com sucesso!") ?>;
-                alert(msg);
-            </script>
-            <?php
+            mensagem("Aluno cadastrado com sucesso!");
         }
     }
 }

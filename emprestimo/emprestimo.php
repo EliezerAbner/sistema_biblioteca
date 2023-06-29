@@ -10,19 +10,23 @@ if(isset($_POST["btnSubmit"]))
         $nomeLivro = $_POST["txtLivro"];
         $dataEntrega = $_POST["txtDataEntrega"];
 
-        $nomeAluno = obterId("SELECT * FROM aluno WHERE nomeAluno='{$nomeAluno}'", "alunoId");
-        $nomeLivro = obterId("SELECT * FROM livro WHERE nomeLivro='{$nomeLivro}'", "livroId");
-        $exemplarLivro = obterId("SELECT * FROM exemplarlivro", "exemplarLivroId");
+        $qtdeDisponivel = obterId("SELECT * FROM exemplarlivro", "numeroExemplar");
 
-        insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega);
+        if ($qtdeDisponivel > 0)
+        {
+            $nomeAluno = obterId("SELECT * FROM aluno WHERE nomeAluno='{$nomeAluno}'", "alunoId");
+            $nomeLivro = obterId("SELECT * FROM livro WHERE nomeLivro='{$nomeLivro}'", "livroId");
+            $exemplarLivro = obterId("SELECT * FROM exemplarlivro", "exemplarLivroId");
 
-        ?>
-            <script>
-                window.location.href = "../index.html";
-                var msg = <?php echo json_encode("Empréstimo concluido com sucesso!") ?>;
-                alert(msg);
-            </script>
-            <?php
+            insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega);
+            atualizar("UPDATE exemplarlivro SET numeroExemplar = numeroExemplar - 1 WHERE exemplarLivroId= $exemplarLivro");
+
+            mensagem("Empréstimo realizado com sucesso!");
+        }
+        else
+        {
+            mensagem("Livro não disponível");
+        }
     }
 }
 

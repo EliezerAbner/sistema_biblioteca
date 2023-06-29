@@ -19,13 +19,7 @@
             
             $insertExemplarLivro = insert("INSERT INTO exemplarLivro (livroId, numeroExemplar) VALUES ({'$livroId'}, {'$qtde'})", "exemplarLivro", "livroId", "$livroId", "","" );
             
-            ?>
-            <script>
-                window.location.href = "../index.html";
-                var msg = <?php echo json_encode("Livro cadastrado com sucesso!") ?>;
-                alert(msg);
-            </script>
-            <?php
+            mensagem("Livro cadastrado com sucesso!");
         }
     }
     else if (isset($_POST["btnAtualizar"]))
@@ -49,13 +43,7 @@
             $autorLivroId = obterId("SELECT * FROM `autorLivro` WHERE livroId = '{$livroId}'","autorLivroId");
             atualizar("UPDATE `autorLivro` SET autorId='{$autorId}', livroId='{$livroId}' WHERE autorLivroId='{$autorLivroId}'");
 
-            ?>
-            <script>
-                window.location.href = "../index.html";
-                var msg = <?php echo json_encode("Livro atualizado com sucesso!") ?>;
-                alert(msg);
-            </script>
-            <?php
+            mensagem("Livro atualizado com sucesso!");
         }
     }
 
