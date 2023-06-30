@@ -24,6 +24,7 @@ function insert($insertQuery, $verificaTabela, $verificaColuna, $VerificaDado, $
 }
 function verificaDuplicados($verificaTabela, $verificaColuna, $VerificaDado, $colunaId)
 {
+    var_dump($colunaId);
     $con = $_SESSION["conexao"];
     $sql = "SELECT * FROM `{$verificaTabela}` WHERE {$verificaColuna} = '{$VerificaDado}'";
     $query = mysqli_query($con, $sql);
@@ -100,6 +101,13 @@ function emprestimoDuplicado($nomeAluno, $exemplarLivro)
         return false;
     }
     return true;
+}
+
+function devolucaoEmprestimo($alunoId, $exemplarId)
+{
+    $con = $_SESSION["conexao"];
+    $sql = "DELETE FROM emprestimolivro WHERE alunoId={$alunoId} AND exemplarLivroId={$exemplarId}";
+    $query = mysqli_query($con, $sql);
 }
 
 function mensagem($mensagem)

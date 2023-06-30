@@ -10,72 +10,72 @@
 </head>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand">Biblioteca Virtual</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Alunos
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="../alunos/listaAlunos.php">Alunos</a> </li>
-                      <li><a class="dropdown-item" href="../alunos/cadAlunos.html">Cadastro de Alunos</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Livros
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="../livros/listaLivros.php">Livros</a></li>
-                      <li><a class="dropdown-item" href="../livros/cadLivros.html">Cadastro de Livros</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Empréstimos
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="../emprestimo/emprestimo.html">Realizar
-                        Empréstimo
-                      </a></li>
-                      <li><a class="dropdown-item" href="../emprestimo/devolucao.html">Devoluções</a></li>
-                      <li><a class="dropdown-item" href="../emprestimo/listaEmprestimos.php">Empréstimos Ativos</a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <span class="navbar-text">
-                  Navbar text with an inline element
-                </span>
-              </div>
+  <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand">Biblioteca Virtual</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Alunos
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../alunos/listaAlunos.php">Alunos</a> </li>
+                    <li><a class="dropdown-item" href="../alunos/cadAlunos.html">Cadastro de Alunos</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Livros
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../livros/listaLivros.php">Livros</a></li>
+                    <li><a class="dropdown-item" href="../livros/cadLivros.html">Cadastro de Livros</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Empréstimos
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../emprestimo/emprestimo.html">Realizar
+                      Empréstimo
+                    </a></li>
+                    <li><a class="dropdown-item" href="../emprestimo/devolucao.html">Devoluções</a></li>
+                    <li><a class="dropdown-item" href="../emprestimo/listaEmprestimos.php">Empréstimos Ativos</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <span class="navbar-text">
+                Navbar text with an inline element
+              </span>
             </div>
-        </nav>
-    </header>
-    <div>
-      <form action="emprestimo/devolucao.php" method="post">
-          <table>
-              <tr>
-                  <td>Código do Livro</td>
-                  <td><input type="number" name="txtCodLivro"></td>
-              </tr>
-              <tr>
-                  <td>Nome do Aluno</td>
-                  <td><input type="text" name="txtNomeAluno"></td>
-              </tr>
-              <tr>
-                  <td><input type="submit" name="btnDevolver" value="Devolver"></td>
-              </tr>
-          </table>
-      </form>
-  </div>
+          </div>
+      </nav>
+  </header>
+  <div>
+    <form action="emprestimo/devolucao.php" method="post">
+        <table>
+            <tr>
+                <td>Código do Livro</td>
+                <td><input type="number" name="txtCodLivro"></td>
+            </tr>
+            <tr>
+                <td>Nome do Aluno</td>
+                <td><input type="text" name="txtNomeAluno"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="btnDevolver" value="Devolver"></td>
+            </tr>
+        </table>
+    </form>
+</div>
 </body>
 </html>

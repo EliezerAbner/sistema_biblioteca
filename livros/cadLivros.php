@@ -8,7 +8,7 @@
         {
             $autores[0] = $_POST["txtAutor"];
             $contadorAutores = 1;
-            while($_POST["txtAutor_$contadorAutores"])
+            while(isset($_POST["txtAutor_$contadorAutores"]))
             {
                 $autores[$contadorAutores] = $_POST["txtAutor_$contadorAutores"];
                 $contadorAutores++;
@@ -16,7 +16,7 @@
 
             $exemplares[0] = $_POST["txtCod"];
             $contadorExemplares = 1;
-            while($_POST["txtCod_$contadorExemplares"])
+            while(isset($_POST["txtCod_$contadorExemplares"]))
             {
                 $exemplares[$contadorExemplares] = $_POST["txtCod_$contadorExemplares"];
                 $contadorExemplares++;
@@ -28,9 +28,6 @@
             
             $editoraId = insert("INSERT INTO editora (nomeEditora) VALUES ('{$nomeEditora}')", "editora", "nomeEditora", "$nomeEditora", "SELECT max(editoraId) AS editoraId FROM editora", "editoraId");
             $livroId = insert("INSERT INTO livro (editoraId, nomeLivro, anoPublicacao) VALUES ('{$editoraId}','{$titulo}', '{$anoPublicacao}')", "livro", "nomeLivro", $titulo, "SELECT max(livroId) AS livroId FROM livro ", "livroId");
-
-            var_dump($autores);
-            die();
 
             $contador = 0;
             foreach ($autores as $autor)
