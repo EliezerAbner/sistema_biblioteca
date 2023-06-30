@@ -6,19 +6,53 @@
     {
         if(verificaVazios())
         {
+            $autores[0] = $_POST["txtAutor"];
+            $contadorAutores = 1;
+            while($_POST["txtAutor_$contadorAutores"])
+            {
+                $autores[$contadorAutores] = $_POST["txtAutor_$contadorAutores"];
+                $contadorAutores++;
+            }
+
+            $exemplares[0] = $_POST["txtCod"];
+            $contadorExemplares = 1;
+            while($_POST["txtCod_$contadorExemplares"])
+            {
+                $exemplares[$contadorExemplares] = $_POST["txtCod_$contadorExemplares"];
+                $contadorExemplares++;
+            }
+
             $titulo = $_POST["txtTitulo"];
-            $nomeAutor = $_POST["txtAutor"];
             $nomeEditora = $_POST["txtEditora"]; 
             $anoPublicacao = $_POST["txtAno"];
-            $codigo = $_POST["txtCod"];
             
             $editoraId = insert("INSERT INTO editora (nomeEditora) VALUES ('{$nomeEditora}')", "editora", "nomeEditora", "$nomeEditora", "SELECT max(editoraId) AS editoraId FROM editora", "editoraId");
             $livroId = insert("INSERT INTO livro (editoraId, nomeLivro, anoPublicacao) VALUES ('{$editoraId}','{$titulo}', '{$anoPublicacao}')", "livro", "nomeLivro", $titulo, "SELECT max(livroId) AS livroId FROM livro ", "livroId");
-            $autorId = insert("INSERT INTO autor (nomeAutor) VALUES ('{$nomeAutor}')", "autor", "nomeAutor", $nomeAutor, "SELECT max(autorId) AS autorId FROM autor", "autorId");
-            $insert = insert("INSERT INTO autorLivro (autorId, livroId) VALUES ('{$autorId}', '{$livroId}')", "autorLivro", "livroId", $livroId, "", "");
-            
-            $insertExemplarLivro = insert("INSERT INTO exemplarLivro (livroId, numeroExemplar) VALUES ({'$livroId'}, {'$codigo'})", "exemplarLivro", "livroId", "$livroId", "","" );
-            
+
+            var_dump($autores);
+            die();
+
+            $contador = 0;
+            foreach ($autores as $autor)
+            {
+                $autorIds[$contador] = insert("INSERT INTO autor (nomeAutor) VALUES ('{$autor}')", "autor", "nomeAutor", $autor, "SELECT max(autorId) AS autorId FROM autor", "autorId");
+                $contador++;
+            }
+
+            $contador = 0;
+            foreach ($autorIds as $autorId)
+            {
+                insert("INSERT INTO autorLivro (autorId, livroId) VALUES ('{$autorId}', '{$livroId}')", "autorLivro", "livroId", $livroId, "", "");
+                $contador++;
+            }
+
+            $contador = 0;
+            foreach ($exemplares as $exemplar)
+            {
+                insert("INSERT INTO exemplarLivro (livroId, numeroExemplar) VALUES ({$livroId}, {$exemplar})", "exemplarLivro", "livroId", "$livroId", "","" );
+                $contador++;
+            }
+
             mensagem("Livro cadastrado com sucesso!");
         }
     }
@@ -49,7 +83,7 @@
 
     function verificaVazios()
     {
-        if($_POST["txtTitulo"] == "" || $_POST["txtAutor"] == "" || $_POST["txtEditora"] == "" || $_POST["txtAno"] == "" || $_POST["txtQtde"] || "")
+        if($_POST["txtTitulo"] == "" || $_POST["txtAutor"] == "" || $_POST["txtEditora"] == "" || $_POST["txtAno"] == "" || $_POST["txtCod"] == "")
         {
             ?>
             <script>

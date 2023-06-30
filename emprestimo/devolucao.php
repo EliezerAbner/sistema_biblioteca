@@ -2,7 +2,7 @@
 
 if (isset($_POST["btnDevolver"]))
 {
-    $nomeLivro = $_POST["txtNomeLivro"];
+    $codLivro = $_POST["txtCodLivro"];
     $nomeAluno = $_POST["txtNomeAluno"];
 
     $idEmprestimo = obterId("SELECT * FROM emprestimolivro WHERE ");

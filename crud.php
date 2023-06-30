@@ -63,8 +63,12 @@ function obterId($query, $id)
         {
             $idObtido = $result[$id];
         } 
+        return $idObtido;
     }
-    return $idObtido;
+    else
+    {
+        return false;
+    }
 }
 
 function insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega)
@@ -82,14 +86,14 @@ function insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega)
     }
     else
     {
-        mensagem("Emprestimo já realizado!");
+        mensagem("Livro já realizado!");
     }
 }
 
 function emprestimoDuplicado($nomeAluno, $exemplarLivro)
 {
     $con = $_SESSION["conexao"];
-    $sql = "SELECT * FROM emprestimolivro WHERE alunoId='{$nomeAluno}' AND exemplarLivroId='{$exemplarLivro}'";
+    $sql = "SELECT * FROM emprestimolivro WHERE exemplarLivroId='{$exemplarLivro}'";
     $query = mysqli_query($con, $sql);
     if(mysqli_num_rows($query) > 0)
     {

@@ -7,36 +7,25 @@ if(isset($_POST["btnSubmit"]))
     if(varificaVazios())
     {
         $nomeAluno = $_POST["txtAluno"];
-        $nomeLivro = $_POST["txtLivro"];
+        $codLivro = $_POST["txtCodLivro"];
         $dataEntrega = $_POST["txtDataEntrega"];
 
-        $qtdeDisponivel = obterId("SELECT * FROM exemplarlivro", "numeroExemplar");
+        $nomeAluno = obterId("SELECT * FROM aluno WHERE nomeAluno='{$nomeAluno}'", "alunoId");
+        $exemplarLivro = obterId("SELECT * FROM exemplarlivro WHERE numeroExemplar={$codLivro}", "exemplarLivroId");
 
-        if ($qtdeDisponivel > 0)
-        {
-            $nomeAluno = obterId("SELECT * FROM aluno WHERE nomeAluno='{$nomeAluno}'", "alunoId");
-            $nomeLivro = obterId("SELECT * FROM livro WHERE nomeLivro='{$nomeLivro}'", "livroId");
-            $exemplarLivro = obterId("SELECT * FROM exemplarlivro", "exemplarLivroId");
+        insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega);
 
-            insertEmprestimo($exemplarLivro, $nomeAluno, $dataEntrega);
-            atualizar("UPDATE exemplarlivro SET numeroExemplar = numeroExemplar - 1 WHERE exemplarLivroId= $exemplarLivro");
-
-            mensagem("Empréstimo realizado com sucesso!");
-        }
-        else
-        {
-            mensagem("Livro não disponível");
-        }
+        mensagem("Empréstimo realizado com sucesso!");
     }
 }
 
 function varificaVazios()
 {
-    if($_POST["txtLivro"] == "" || $_POST["txtAluno"] == "" || $_POST["txtDataEntrega"] == "")
+    if($_POST["txtCodLivro"] == "" || $_POST["txtAluno"] == "" || $_POST["txtDataEntrega"] == "")
     {
         ?>
         <script>
-            window.location.href = "cadLivros.html";
+            window.location.href = "emprestimo/emprestimo.html";
             var msg = <?php echo json_encode("Preencha os campos!") ?>;
             alert(msg);
         </script>
